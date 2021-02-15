@@ -1,0 +1,2 @@
+FROM danjellz/http-server
+
