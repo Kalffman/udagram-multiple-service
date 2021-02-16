@@ -1,0 +1,40 @@
+language: node_js
+node_js: 12
+
+services: docker
+
+jobs:
+  include:
+    - stage: api
+      
+      before_install:
+        - cd udagram-api
+
+      install:
+        - npm i
+        
+      script:
+        - npm run build
+        - docker build -t kalffman/udagram-api .
+
+      after_success:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push kalffman/udagram-api
+
+
+    - stage: frontend
+
+      before_install:
+        - cd udagram-frontend
+
+      install:
+        - npm i
+      
+      script:
+        - npm run build
+        - docker build -t kalffman/udagram-frontend .
+      
+      after_success:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push kalffman/udagram-frontend
+      
