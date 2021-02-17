@@ -2,7 +2,7 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
-COPY www/* .
+COPY www/ .
 
 ENV POSTGRES_USERNAME=""
 ENV POSTGRES_PASSWORD=""
