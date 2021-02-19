@@ -1,0 +1,14 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: udagram-cluster
+  region: sa-east-1
+
+nodeGroups:
+  - name: udg-dev-01
+    instanceType: t2.micro
+    desiredCapacity: 2
+    volumeSize: 20
+    ssh:
+      publicKeyPath: ~/Desktop/personal-use.pem
