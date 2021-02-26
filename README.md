@@ -30,15 +30,17 @@ npm run dev
 
 ### UDAGRAM-FRONTEND
 
-1. You need to install ionic for development mode
+1. First you need to install ionic for development mode in you global environment
 
 ```bash
 npm install -g ionic
 ```
 
-2. After go to root project folder an run next steps in your terminal
+2. After, go to root project folder an run next steps in your terminal
 
 ```bash
+cd udagram-frontend
+
 ionic build
 
 ionic serve
