@@ -4,21 +4,38 @@ services: docker
 
 jobs:
   include:
-    - stage: api
+    - stage: api-feed
       
       before_install:
-        - cd udagram-api
+        - cd udagram-api-feed
 
       install:
         - npm i
         
       script:
         - npm run build
-        - docker build -t kalffman/udagram-api .
+        - docker build -t kalffman/udagram-api-feed .
 
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push kalffman/udagram-api
+        - docker push kalffman/udagram-api-feed
+
+
+    - stage: api-user
+      
+      before_install:
+        - cd udagram-api-user
+
+      install:
+        - npm i
+        
+      script:
+        - npm run build
+        - docker build -t kalffman/udagram-api-user .
+
+      after_success:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push kalffman/udagram-api-user
 
 
     - stage: frontend
@@ -37,3 +54,12 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push kalffman/udagram-frontend
       
+
+    - stage: reverse-proxy
+
+      script:
+        - docker build -t kalffman/udagram-reverse-proxy .
+      
+      after_success:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push kalffman/udagram-reverse-proxy

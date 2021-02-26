@@ -1,19 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udagram-api
+  name: udagram-api-feed
 spec:
   selector:
     matchLabels:
-      app: udagram-api
+      app: udagram-api-feed
   template:
     metadata:
       labels:
-        app: udagram-api
+        app: udagram-api-feed
     spec:
       containers:
-      - name: udagram-api
-        image: kalffman/udagram-api
+      - name: udagram-api-feed
+        image: kalffman/udagram-api-feed
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
         ports:
         - containerPort: 8080
         env:
@@ -39,11 +47,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: udagram-api-service
+  name: udagram-api-feed-service
 spec:
-  type: NodePort
   selector:
-    app: udagram-api
+    app: udagram-api-feed
   ports:
   - port: 8080
     targetPort: 8080
