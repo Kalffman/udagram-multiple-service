@@ -47,8 +47,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: udagram-api-feed-service
+  name: udagram-api-feed
 spec:
+  type: ClusterIP
   selector:
     app: udagram-api-feed
   ports:

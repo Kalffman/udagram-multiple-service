@@ -1,20 +1,20 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    service: reverseproxy
-  name: reverseproxy
+  name: udagram-reverseproxy
 spec:
-  replicas: 1
+  selector:
+    matchLabels:
+      app: udagram-reverseproxy
   template:
     metadata:
       labels:
-        service: reverseproxy
+        service: udagram-reverseproxy
     spec:
       containers:
-      - image: kalffman/simple-reverse-proxy
-        name: reverseproxy
-        imagePullPolicy: Always          
+      - name: udagram-reverseproxy
+        image: kalffman/udagram-reverseproxy
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "64Mi"
@@ -32,13 +32,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    service: reverseproxy
-  name: reverseproxy-svc
+  name: udagram-reverseproxy
 spec:
-  ports:
-  - name: "8080"
-    port: 8080
-    targetPort: 8080
+  type: NodePort
   selector:
-    service: reverseproxy
+    service: udagram-reverseproxy
+  ports:
+  - port: 8080
+    targetPort: 8080
