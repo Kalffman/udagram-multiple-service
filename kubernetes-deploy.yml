@@ -9,7 +9,7 @@ spec:
   template:
     metadata:
       labels:
-        service: udagram-reverseproxy
+        app: udagram-reverseproxy
     spec:
       containers:
       - name: udagram-reverseproxy
@@ -36,7 +36,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    service: udagram-reverseproxy
+    app: udagram-reverseproxy
   ports:
   - port: 8080
-    targetPort: 8080
+    nodePort: 30880

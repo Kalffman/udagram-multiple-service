@@ -58,8 +58,8 @@ jobs:
     - stage: reverse-proxy
 
       script:
-        - docker build -t kalffman/udagram-reverse-proxy .
+        - docker build -t kalffman/udagram-reverseproxy .
       
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push kalffman/udagram-reverse-proxy
+        - docker push kalffman/udagram-reverseproxy

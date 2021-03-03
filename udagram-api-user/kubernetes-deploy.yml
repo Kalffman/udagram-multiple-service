@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: udagram-api-user
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: udagram-api-user
@@ -41,6 +42,27 @@ spec:
             value: "jeff"
           - name: URL
             value: "http://localhost:8100"
+
+---
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: udagram-api-user
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: udagram-api-user
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
 
 ---
 

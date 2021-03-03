@@ -37,4 +37,5 @@ spec:
     app: udagram-frontend
   ports:
   - port: 8080
+    nodePort: 30080
 
